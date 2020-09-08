@@ -1,13 +1,18 @@
-#Linearly search x in array. If x is present then
-#return its location, otherwise, return -1.
-
+# Returns index of x in arr if present, else -1
 from typing import List
 
-def search(arr: List[int], size: int, x: int) -> int:
-    for i in range (0, size):
-        if (arr[i] == x):
-            return i
-    return -1
+def binary_search (arr: List[int], left: int, right: int, x: int) -> int:
+	if right >= left:
+		mid = left + (right - left) // 2
+ 
+		if arr[mid] == x: 
+			return mid
+		elif arr[mid] > x: 
+			return binary_search(arr, left, mid-1, x)  
+		else: 
+			return binary_search(arr, mid + 1, right, x) 
+	else:
+		return -1
 
 def main():
     arr = list()
@@ -18,7 +23,7 @@ def main():
         arr.append(int(input()))
 
     x = int(input("Enter the element to search : "))
-    result = search(arr, size, x)
+    result = binary_search(arr, 0, len(arr)-1, x)
 
     if(result == -1):
         print("Element is not present in array")
@@ -31,10 +36,10 @@ if __name__=="__main__":
 """ Example :
 Enter the size of the input array : 4
 Enter the array elements :
+21
 12
-5
-6
-34
-Enter the element to search : 6
+45
+55
+Enter the element to search : 45
 Element is present at index 2
 """
